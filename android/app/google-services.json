@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "228791069592",
+    "project_id": "menumee-4740b",
+    "storage_bucket": "menumee-4740b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:228791069592:android:0f5fe93552a000007b99ed",
+        "android_client_info": {
+          "package_name": "com.example.food_service"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSITBV7pjMHYOINi1QpBEzrgxXN9s8AF8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
