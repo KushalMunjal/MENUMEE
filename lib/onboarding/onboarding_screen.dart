@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food_service/common/color_extension.dart';
 import 'package:food_service/tablefinder/homescreen.dart';
 import 'package:lottie/lottie.dart';
-import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({super.key});
@@ -67,11 +68,11 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          'assets/images/logo.png',
-                          height: 60,
-                          width: 60,
-                        ),
+                        // Image.asset(
+                        //   'assets/images/logo.png',
+                        //   height: 60,
+                        //   width: 60,
+                        // ),
                         SizedBox(width: 8),
                         Text(
                           "MENUMEE",
@@ -153,7 +154,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                   ),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.blue,
+                      backgroundColor: TColor.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(28),
                       ),
@@ -166,10 +167,12 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (selectPage >= 2) {
+                        final prefs = await SharedPreferences.getInstance();
+                        prefs.setBool('new_user', false);
                         // Home Screen
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const HomeScreen(),

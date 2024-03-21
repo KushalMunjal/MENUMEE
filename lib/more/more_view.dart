@@ -1,12 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_service/more/about_us_view.dart';
-import 'package:food_service/tablefinder/homescreen.dart';
-import 'package:food_service/global.dart' as global;
-import 'package:firebase_core/firebase_core.dart';
+import 'package:food_service/more/inbox_view.dart';
+import 'package:food_service/more/payment_details_view.dart';
+
 import '../../common/color_extension.dart';
 import 'my_order_view.dart';
-import 'helpdesk_view.dart';
+import 'notification_view.dart';
 
 class MoreView extends StatefulWidget {
   const MoreView({super.key});
@@ -16,33 +15,6 @@ class MoreView extends StatefulWidget {
 }
 
 class _MoreViewState extends State<MoreView> {
-  String? tableCode = global.tableCode;
-Future<void> deleteItems(String tableCode) async {
-  //  String? tableCode = global.tableCode;
-  try {
-    // Access the Firestore collection based on the provided table code
-    CollectionReference itemsCollection = FirebaseFirestore.instance
-        .collection('tables')
-        .doc(tableCode)
-        .collection('item');
-
-    // Get all documents in the 'items' collection and delete them
-    QuerySnapshot snapshot = await itemsCollection.get();
-    for (QueryDocumentSnapshot doc in snapshot.docs) {
-      await doc.reference.delete();
-    }
-// Update the main table document
-    DocumentReference tableDocRef = FirebaseFirestore.instance.collection('tables').doc(tableCode);
-    await tableDocRef.update({
-      'status': 'inactive',
-      'helpStatus': false, 
-    });
-
-    print('Items deleted, status updated to inactive, and helpStatus set to false for table code: $tableCode');
-  } catch (e) {
-    print('Error deleting items: $e');
-  }
-}
   List moreArr = [
     {
       "index": "1",
@@ -58,18 +30,24 @@ Future<void> deleteItems(String tableCode) async {
     },
     {
       "index": "3",
-      "name": "Help Desk",
+      "name": "Notifications",
       "image": "assets/images/more_notification.png",
-      "base": 0
+      "base": 15
     },
     {
       "index": "4",
+      "name": "Inbox",
+      "image": "assets/images/more_inbox.png",
+      "base": 0
+    },
+    {
+      "index": "5",
       "name": "About Us",
       "image": "assets/images/more_info.png",
       "base": 0
     },
     {
-      "index": "5",
+      "index": "6",
       "name": "Logout",
       "image": "assets/images/more_info.png",
       "base": 0
@@ -100,6 +78,19 @@ Future<void> deleteItems(String tableCode) async {
                           fontSize: 20,
                           fontWeight: FontWeight.w800),
                     ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MyOrderView()));
+                      },
+                      icon: Image.asset(
+                        "assets/images/shopping_cart.png",
+                        width: 25,
+                        height: 25,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -115,6 +106,11 @@ Future<void> deleteItems(String tableCode) async {
                       onTap: () {
                         switch (mObj["index"].toString()) {
                           case "1":
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const PaymentDetailsView()));
 
                             break;
 
@@ -128,18 +124,19 @@ Future<void> deleteItems(String tableCode) async {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const HelpDeskView()));
+                                        const NotificationsView()));
                           case "4":
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const AboutUsView()));
+                                    builder: (context) => const InboxView()));
                           case "5":
-                            deleteItems(tableCode!);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const HomeScreen()));
+                                    builder: (context) => const AboutUsView()));
+                          case "6":
+                           
 
                           default:
                         }

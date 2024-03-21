@@ -1,78 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_service/common_widget/round_icon_button.dart';
-import 'package:food_service/more/my_order_view.dart';
-import 'package:food_service/tablefinder/homescreen.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../common/color_extension.dart';
-import 'package:food_service/global.dart' as global;
-// import '../more/my_order_view.dart';
-class ItemDetailsView extends StatefulWidget {
-  final String image;
-  final String title;
 
-  const ItemDetailsView({
-    Key? key,
-    required this.image,
-    required this.title,
-  }) : super(key: key);
+import '../../common/color_extension.dart';
+import '../more/my_order_view.dart';
+
+class ItemDetailsView extends StatefulWidget {
+  const ItemDetailsView({super.key});
 
   @override
   State<ItemDetailsView> createState() => _ItemDetailsViewState();
 }
 
 class _ItemDetailsViewState extends State<ItemDetailsView> {
-  TextEditingController customOrderController = TextEditingController();
-  double price = 100;
+  double price = 15;
   int qty = 1;
-
-Future<void> addToFirebase() async {
-    // Access the table code from the HomeScreen
-  
-    String? tableCode = global.tableCode;
-
-    // Check if the table code is available
-    if (tableCode != null) {
-      try {
-        // Access Firebase and add the item to the collection
-        await FirebaseFirestore.instance
-            .collection('tables')
-            .doc(tableCode) // Use the table code
-            .collection('item') // Assuming you have a collection 'items'
-            .add({
-          "name": widget.title,
-          "qty": qty.toString(),
-          "price": price*qty,
-          "cutomization":customOrderController.text
-        });
-        showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Successfully Placed'),
-            content: Text('Your Order has been Placed and Added List of Orders'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-        // Show success message or perform other operations upon successful addition
-        print('Item added to Firebase.');
-      } catch (e) {
-        // Handle any potential errors here
-        print('Error adding item to Firebase: $e');
-      }
-    } else {
-      // Handle the case where the table code is not available
-      print('Table code is null.');
-    }
-  }
+  bool isFav = false;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +26,7 @@ Future<void> addToFirebase() async {
         alignment: Alignment.topCenter,
         children: [
           Image.asset(
-            widget.image,
+            "assets/images/detail_top.png",
             width: media.width,
             height: media.width,
             fit: BoxFit.cover,
@@ -125,7 +68,7 @@ Future<void> addToFirebase() async {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 25),
                                 child: Text(
-                                  widget.title,
+                                  "Tandoori Chicken Pizza",
                                   style: TextStyle(
                                       color: TColor.primaryText,
                                       fontSize: 22,
@@ -185,7 +128,7 @@ Future<void> addToFirebase() async {
                                           CrossAxisAlignment.end,
                                       children: [
                                         Text(
-                                          "Rs. ${price.toStringAsFixed(2)}",
+                                          "\$${price.toStringAsFixed(2)}",
                                           style: TextStyle(
                                               color: TColor.primaryText,
                                               fontSize: 31,
@@ -193,6 +136,13 @@ Future<void> addToFirebase() async {
                                         ),
                                         const SizedBox(
                                           height: 4,
+                                        ),
+                                        Text(
+                                          "/per Portion",
+                                          style: TextStyle(
+                                              color: TColor.primaryText,
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.w500),
                                         ),
                                       ],
                                     )
@@ -254,16 +204,75 @@ Future<void> addToFirebase() async {
                               const SizedBox(
                                 height: 20,
                               ),
-                              //add rectangle textfield
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 25),
-                                child: TextField(
-                                  controller: customOrderController,
-                                  decoration: InputDecoration(
-                                    hintText: 'Enter customization',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  decoration: BoxDecoration(
+                                      color: TColor.textfield,
+                                      borderRadius: BorderRadius.circular(5)),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton(
+                                      isExpanded: true,
+                                      items: ["small", "Big"].map((e) {
+                                        return DropdownMenuItem(
+                                          value: e,
+                                          child: Text(
+                                            e,
+                                            style: TextStyle(
+                                                color: TColor.primaryText,
+                                                fontSize: 14),
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (val) {},
+                                      hint: Text(
+                                        "- Select the size of portion -",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: TColor.secondaryText,
+                                            fontSize: 14),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 25),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  decoration: BoxDecoration(
+                                      color: TColor.textfield,
+                                      borderRadius: BorderRadius.circular(5)),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton(
+                                      isExpanded: true,
+                                      items: ["small", "Big"].map((e) {
+                                        return DropdownMenuItem(
+                                          value: e,
+                                          child: Text(
+                                            e,
+                                            style: TextStyle(
+                                                color: TColor.primaryText,
+                                                fontSize: 14),
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (val) {},
+                                      hint: Text(
+                                        "- Select the ingredients -",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: TColor.secondaryText,
+                                            fontSize: 14),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -431,7 +440,7 @@ Future<void> addToFirebase() async {
                                                     height: 15,
                                                   ),
                                                   Text(
-                                                    "${(price * qty).toString()}",
+                                                    "\$${(price * qty).toString()}",
                                                     style: TextStyle(
                                                         color:
                                                             TColor.primaryText,
@@ -446,32 +455,22 @@ Future<void> addToFirebase() async {
                                                     width: 130,
                                                     height: 25,
                                                     child: RoundIconButton(
-                                                        title: "Add to Order",
+                                                        title: "Add to Cart",
                                                         icon:
-                                                            "assets/images/add.png",
+                                                            "assets/images/shopping_add.png",
                                                         color: TColor.primary,
-                                                        onPressed: () {
-                                                          // Navigator.push(
-                                                          //   context,
-                                                          //   MaterialPageRoute(
-                                                          //     builder:
-                                                          //         (context) =>
-                                                          //             MyCartView(
-                                                          //       title: widget
-                                                          //           .title,
-                                                          //       quantity: qty,
-                                                          //       price:
-                                                          //           price * qty,
-                                                          //     ),
-                                                          //   ),
-                                                          // );
-                                                          addToFirebase();
-                                                        }),
+                                                        onPressed: () {}),
                                                   )
                                                 ],
                                               )),
                                           InkWell(
-                                            onTap: () {},
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const MyOrderView()));
+                                            },
                                             child: Container(
                                               width: 45,
                                               height: 45,
@@ -486,6 +485,12 @@ Future<void> addToFirebase() async {
                                                         blurRadius: 4,
                                                         offset: Offset(0, 2))
                                                   ]),
+                                              alignment: Alignment.center,
+                                              child: Image.asset(
+                                                  "assets/images/shopping_cart.png",
+                                                  width: 20,
+                                                  height: 20,
+                                                  color: TColor.primary),
                                             ),
                                           ),
                                         ],
@@ -503,6 +508,22 @@ Future<void> addToFirebase() async {
                         height: 20,
                       ),
                     ],
+                  ),
+                  Container(
+                    height: media.width - 20,
+                    alignment: Alignment.bottomRight,
+                    margin: const EdgeInsets.only(right: 4),
+                    child: InkWell(
+                        onTap: () {
+                          isFav = !isFav;
+                          setState(() {});
+                        },
+                        child: Image.asset(
+                            isFav
+                                ? "assets/images/favorites_btn.png"
+                                : "assets/images/favorites_btn_2.png",
+                            width: 70,
+                            height: 70)),
                   ),
                 ],
               ),
@@ -524,10 +545,25 @@ Future<void> addToFirebase() async {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: SvgPicture.asset(
-                          "assets/icons/leftarrow.svg",
-                          width: 30,
-                          height: 30,
+                        icon: Image.asset(
+                          "assets/images/btn_back.png",
+                          width: 20,
+                          height: 20,
+                          color: TColor.white,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MyOrderView()));
+                        },
+                        icon: Image.asset(
+                          "assets/images/shopping_cart.png",
+                          width: 25,
+                          height: 25,
+                          color: TColor.white,
                         ),
                       ),
                     ],

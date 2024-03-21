@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../common/color_extension.dart';
 import '../../common_widget/round_textfield.dart';
-// import '../more/my_order_view.dart';
+import '../more/my_order_view.dart';
 import 'menu_items_view.dart';
 
 class MenuView extends StatefulWidget {
@@ -15,24 +15,24 @@ class MenuView extends StatefulWidget {
 class _MenuViewState extends State<MenuView> {
   List menuArr = [
     {
-      "name": "Burger",
+      "name": "Food",
       "image": "assets/images/menu_1.png",
-      "items_count": "5",
+      "items_count": "120",
     },
     {
-      "name": "Pizza",
-      "image": "assets/images/menu_1.png",
-      "items_count": "5",
+      "name": "Beverages",
+      "image": "assets/images/menu_2.png",
+      "items_count": "220",
     },
     {
       "name": "Desserts",
       "image": "assets/images/menu_3.png",
-      "items_count": "7",
+      "items_count": "155",
     },
     {
-      "name": "Combos",
+      "name": "Promotions",
       "image": "assets/images/menu_4.png",
-      "items_count": "2",
+      "items_count": "25",
     },
   ];
   TextEditingController txtSearch = TextEditingController();
@@ -74,6 +74,19 @@ class _MenuViewState extends State<MenuView> {
                               color: TColor.primaryText,
                               fontSize: 20,
                               fontWeight: FontWeight.w800),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const MyOrderView()));
+                          },
+                          icon: Image.asset(
+                            "assets/images/shopping_cart.png",
+                            width: 25,
+                            height: 25,
+                          ),
                         ),
                       ],
                     ),

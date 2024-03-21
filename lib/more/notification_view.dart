@@ -3,20 +3,47 @@ import 'package:food_service/common/color_extension.dart';
 
 import 'my_order_view.dart';
 
-class AboutUsView extends StatefulWidget {
-  const AboutUsView({super.key});
+class NotificationsView extends StatefulWidget {
+  const NotificationsView({super.key});
 
   @override
-  State<AboutUsView> createState() => _AboutUsViewState();
+  State<NotificationsView> createState() => _NotificationsViewState();
 }
 
-class _AboutUsViewState extends State<AboutUsView> {
-  List aboutTextArr = [
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+class _NotificationsViewState extends State<NotificationsView> {
+  List notificationArr = [
+    {
+      "title": "Your orders has been picked up",
+      "time": "Now",
+    },
+    {
+      "title": "Your order has been delivered",
+      "time": "1 h ago",
+    },
+    {
+      "title": "Your orders has been picked up",
+      "time": "3 h ago",
+    },
+    {
+      "title": "Your order has been delivered",
+      "time": "5 h ago",
+    },
+    {
+      "title": "Your orders has been picked up",
+      "time": "05 Jun 2023",
+    },
+    {
+      "title": "Your order has been delivered",
+      "time": "05 Jun 2023",
+    },
+    {
+      "title": "Your orders has been picked up",
+      "time": "06 Jun 2023",
+    },
+    {
+      "title": "Your order has been delivered",
+      "time": "06 Jun 2023",
+    },
   ];
 
   @override
@@ -47,7 +74,7 @@ class _AboutUsViewState extends State<AboutUsView> {
                     ),
                     Expanded(
                       child: Text(
-                        "About Us",
+                        "Notifications",
                         style: TextStyle(
                             color: TColor.primaryText,
                             fontSize: 20,
@@ -70,15 +97,21 @@ class _AboutUsViewState extends State<AboutUsView> {
                   ],
                 ),
               ),
-              ListView.builder(
+              ListView.separated(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
-                itemCount: aboutTextArr.length,
-               
+                itemCount: notificationArr.length,
+                separatorBuilder: ((context, index) => Divider(
+                  indent: 25,
+                  endIndent: 25,
+                      color: TColor.secondaryText.withOpacity(0.4),
+                      height: 1,
+                    )),
                 itemBuilder: ((context, index) {
-                  var txt = aboutTextArr[index] as String? ?? "";
+                  var cObj = notificationArr[index] as Map? ?? {};
                   return Container(
+                    decoration: BoxDecoration(color: index % 2 == 0 ? TColor.white : TColor.textfield ),
                     padding: const EdgeInsets.symmetric(
                         vertical: 15, horizontal: 25),
                     child: Row(
@@ -86,8 +119,8 @@ class _AboutUsViewState extends State<AboutUsView> {
                       children: [
                         Container(
                           margin: const EdgeInsets.only(top: 4),
-                          width: 6,
-                          height: 6,
+                          width: 8,
+                          height: 8,
                           decoration: BoxDecoration(
                               color: TColor.primary,
                               borderRadius: BorderRadius.circular(4)),
@@ -96,11 +129,27 @@ class _AboutUsViewState extends State<AboutUsView> {
                           width: 15,
                         ),
                         Expanded(
-                          child: Text(
-                            txt,
-                            style: TextStyle(
-                                color: TColor.primaryText,
-                                fontSize: 14),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                cObj["title"].toString(),
+                                style: TextStyle(
+                                    color: TColor.primaryText,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Text(
+                                cObj["time"].toString(),
+                                style: TextStyle(
+                                    color: TColor.secondaryText,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
                           ),
                         ),
                       ],

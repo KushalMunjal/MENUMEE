@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:food_service/firebase_options.dart';
 import 'package:food_service/tabview/main_tabview.dart';
-import 'package:food_service/home/homepage.dart';
-import 'package:food_service/common_widget/round_button.dart';
 import 'package:food_service/common_widget/round_textfield.dart';
 import 'package:food_service/global.dart' as global;
-import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
@@ -30,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (isValid) {
       global.setTableCode(inputCode);
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => MainTabView()),
       );
@@ -96,32 +91,6 @@ Future<void> updateStatusInFirestore(String inputCode) async {
   }
 }
 
-//   Future<bool> checkCodeFromFirestore(String inputCode) async {
-//   try {
-//     // Fetch the document using the entered code as the document ID
-//     var querySnapshot= await FirebaseFirestore.instance
-//         .collection('tables')
-//         // .doc(inputCode)
-//         .get();
-
-// // Iterate through each document in the query result
-//     for (var docSnapshot in querySnapshot.docs) {
-//       var tableCodeFromFirestore = docSnapshot['tableCode'];
-
-//       // Compare the 'tableCode' from Firestore with the entered code
-//       if (tableCodeFromFirestore == inputCode) {
-//         return true; // Return true if the codes match
-//       }
-//     }
-    
-//     return false; // Return false if no match or document doesn't exist
-//   } catch (e) {
-//     print("Error: $e");
-//     return false; // Return false in case of any error
-//   }
-// }
-
-
   Future<void> _qrScanner() async {
     var cameraStatus = await Permission.camera.status;
     if (cameraStatus.isGranted) {
@@ -142,18 +111,18 @@ Future<void> updateStatusInFirestore(String inputCode) async {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: SvgPicture.asset("assets/icons/leftarrow.svg")),
+      backgroundColor: Color.fromARGB(38, 2, 139, 252),
       body: Padding(
         padding: EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SvgPicture.asset(
-                'assets/icons/bellboy-svgrepo-com.svg',
-                height: 200,
-                width: 100,
-              ),
+              // SvgPicture.asset(
+              //   'assets/icons/bellboy-svgrepo-com.svg',
+              //   height: 200,
+              //   width: 100,
+              // ),
               SizedBox(height: 16),
               Center(
                 child: Text(
@@ -186,7 +155,7 @@ Future<void> updateStatusInFirestore(String inputCode) async {
                   authenticateUser(codeController.text);
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.blue,
+                  backgroundColor: Colors.blue,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(28.0),
                   ),
@@ -206,7 +175,7 @@ Future<void> updateStatusInFirestore(String inputCode) async {
                   _qrScanner();
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: const Color.fromARGB(255, 173, 218, 255),
+                  backgroundColor: const Color.fromARGB(255, 173, 218, 255),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(28.0),
                   ),

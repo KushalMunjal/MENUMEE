@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:food_service/common/color_extension.dart';
-import 'package:food_service/common_widget/menu_item_row.dart';
-import 'package:food_service/menu/item_details_view.dart';
-import 'package:food_service/menu/menu_view.dart';
-import 'package:food_service/tabview/main_tabview.dart';
+import '../../common_widget/category_cell.dart';
+import '../../common_widget/most_popular_cell.dart';
+import '../../common_widget/popular_resutaurant_row.dart';
+import '../../common_widget/recent_item_row.dart';
+import '../../common_widget/view_all_title_row.dart';
+import '../common/color_extension.dart';
 import '../common_widget/round_textfield.dart';
-
-import '../../../common_widget/category_cell.dart';
-import '../../../common_widget/most_popular_cell.dart';
-import '../../../common_widget/popular_resutaurant_row.dart';
-import '../../../common_widget/recent_item_row.dart';
-import '../../../common_widget/view_all_title_row.dart';
+import '../more/my_order_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -23,32 +19,32 @@ class _HomeViewState extends State<HomeView> {
   TextEditingController txtSearch = TextEditingController();
 
   List catArr = [
-    {"image": "assets/images/combo2.png", "name": "Combo Offers"},
-    {"image": "assets/images/detail_top.png", "name": "Pizza"},
-    {"image": "assets/images/cat_offer.png", "name": "Burger"},
-    {"image": "assets/images/dess_4.png", "name": "Desserts"},
+    {"image": "assets/images/cat_offer.png", "name": "Offers"},
+    {"image": "assets/images/cat_sri.png", "name": "Sri Lankan"},
+    {"image": "assets/images/cat_3.png", "name": "Italian"},
+    {"image": "assets/images/cat_4.png", "name": "Indian"},
   ];
 
   List popArr = [
     {
       "image": "assets/images/res_1.png",
-      "name": "Basil Pizza",
+      "name": "Minute by tuk tuk",
       "rate": "4.9",
       "rating": "124",
       "type": "Cafa",
       "food_type": "Western Food"
     },
     {
-      "image": "assets/images/m_res_1.png",
-      "name": "Margerita Pizza",
+      "image": "assets/images/res_2.png",
+      "name": "Café de Noir",
       "rate": "4.9",
       "rating": "124",
       "type": "Cafa",
       "food_type": "Western Food"
     },
     {
-      "image": "assets/images/combo1.png",
-      "name": "Burger-Fries Combos",
+      "image": "assets/images/res_3.png",
+      "name": "Bakes by Tella",
       "rate": "4.9",
       "rating": "124",
       "type": "Cafa",
@@ -59,15 +55,15 @@ class _HomeViewState extends State<HomeView> {
   List mostPopArr = [
     {
       "image": "assets/images/m_res_1.png",
-      "name": "Basil Pizza",
+      "name": "Minute by tuk tuk",
       "rate": "4.9",
       "rating": "124",
       "type": "Cafa",
       "food_type": "Western Food"
     },
     {
-      "image": "assets/images/shop_logo.png",
-      "name": "Burger",
+      "image": "assets/images/m_res_2.png",
+      "name": "Café de Noir",
       "rate": "4.9",
       "rating": "124",
       "type": "Cafa",
@@ -78,15 +74,15 @@ class _HomeViewState extends State<HomeView> {
   List recentArr = [
     {
       "image": "assets/images/item_1.png",
-      "name": "Mexican Pizza",
+      "name": "Mulberry Pizza by Josh",
       "rate": "4.9",
       "rating": "124",
       "type": "Cafa",
       "food_type": "Western Food"
     },
     {
-      "image": "assets/images/dess_2.png",
-      "name": "Dark Chocolate Cake",
+      "image": "assets/images/item_2.png",
+      "name": "Barita",
       "rate": "4.9",
       "rating": "124",
       "type": "Cafa",
@@ -94,25 +90,13 @@ class _HomeViewState extends State<HomeView> {
     },
     {
       "image": "assets/images/item_3.png",
-      "name": "Italian Pizza",
+      "name": "Pizza Rush Hour",
       "rate": "4.9",
       "rating": "124",
       "type": "Cafa",
       "food_type": "Western Food"
     },
   ];
-
-  void navigateToItemDetails(Map itemDetails) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ItemDetailsView(
-          image: itemDetails['image'],
-          title: itemDetails['name'],
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,11 +115,24 @@ class _HomeViewState extends State<HomeView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "MENUMEE Restuarant",
+                      "Good morning",
                       style: TextStyle(
                           color: TColor.primaryText,
                           fontSize: 20,
                           fontWeight: FontWeight.w800),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MyOrderView()));
+                      },
+                      icon: Image.asset(
+                        "assets/images/shopping_cart.png",
+                        width: 25,
+                        height: 25,
+                      ),
                     ),
                   ],
                 ),
@@ -148,19 +145,32 @@ class _HomeViewState extends State<HomeView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(
+                      "Delivering to",
+                      style:
+                          TextStyle(color: TColor.secondaryText, fontSize: 11),
+                    ),
+                    const SizedBox(
+                      height: 6,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          "Enjoy Your Meal",
+                          "Current Location",
                           style: TextStyle(
                               color: TColor.secondaryText,
-                              fontSize: 20,
+                              fontSize: 16,
                               fontWeight: FontWeight.w700),
                         ),
                         const SizedBox(
                           width: 25,
                         ),
+                        Image.asset(
+                          "assets/images/dropdown.png",
+                          width: 12,
+                          height: 12,
+                        )
                       ],
                     )
                   ],
@@ -186,14 +196,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
               const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: ViewAllTitleRow(
-                  title: "Categories",
-                  onView: () {},
-                ),
+                height: 30,
               ),
               SizedBox(
                 height: 120,
@@ -213,7 +216,7 @@ class _HomeViewState extends State<HomeView> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ViewAllTitleRow(
-                  title: "Popular Dishes",
+                  title: "Popular Restaurants",
                   onView: () {},
                 ),
               ),
@@ -226,16 +229,14 @@ class _HomeViewState extends State<HomeView> {
                   var pObj = popArr[index] as Map? ?? {};
                   return PopularRestaurantRow(
                     pObj: pObj,
-                    onTap: () {
-                      navigateToItemDetails(pObj);
-                    },
+                    onTap: () {},
                   );
                 }),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ViewAllTitleRow(
-                  title: "Most Liked",
+                  title: "Most Popular",
                   onView: () {},
                 ),
               ),
@@ -249,9 +250,7 @@ class _HomeViewState extends State<HomeView> {
                     var mObj = mostPopArr[index] as Map? ?? {};
                     return MostPopularCell(
                       mObj: mObj,
-                      onTap: () {
-                        navigateToItemDetails(mObj);
-                      },
+                      onTap: () {},
                     );
                   }),
                 ),
@@ -259,7 +258,7 @@ class _HomeViewState extends State<HomeView> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ViewAllTitleRow(
-                  title: "CheF's Special",
+                  title: "Recent Items",
                   onView: () {},
                 ),
               ),
@@ -272,9 +271,7 @@ class _HomeViewState extends State<HomeView> {
                   var rObj = recentArr[index] as Map? ?? {};
                   return RecentItemRow(
                     rObj: rObj,
-                    onTap: () {
-                      navigateToItemDetails(rObj);
-                    },
+                    onTap: () {},
                   );
                 }),
               )

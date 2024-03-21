@@ -1,18 +1,18 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:food_service/more/more_view.dart';
-import 'package:food_service/splash/app_startup.dart';
-import 'package:food_service/home/homepage.dart';
-import 'package:food_service/menu/menu_view.dart';
-import 'package:food_service/onboarding/onboarding_screen.dart';
-import 'package:food_service/tablefinder/homescreen.dart';
-import 'package:food_service/tabview/main_tabview.dart';
+import 'package:food_service/firebase_options.dart';
+import 'package:food_service/login/mobile_signin.dart';
+import 'package:food_service/login/welcome_view.dart';
+import 'package:food_service/outlet/outlet_view.dart';
+
+import 'outlet/map_screen.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(options: 
+   DefaultFirebaseOptions.currentPlatform);
   } catch (e) {
     print('Error initializing Firebase: $e');
     // Handle initialization errors gracefully, show a message, or take appropriate action
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MENUMEE',
       debugShowCheckedModeBanner: false,
-      home: MyAppScreen(),
+      home:GettingMobileNoView(),
     );
   }
 }

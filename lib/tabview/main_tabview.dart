@@ -1,97 +1,126 @@
 import 'package:flutter/material.dart';
-import 'package:food_service/home/homepage.dart';
-import 'package:food_service/menu/menu_view.dart';
-import 'package:food_service/more/more_view.dart';
-import 'package:food_service/more/my_order_view.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:food_service/common/color_extension.dart';
+import 'package:food_service/common_widget/tab_button.dart';
+
+import '../common_widget/tab_button.dart';
+import '../home/homepage.dart';
+import '../menu/menu_view.dart';
+import '../more/more_view.dart';
+import '../offer/offer_view.dart';
+import '../profile/profile_view.dart';
 
 class MainTabView extends StatefulWidget {
-  const MainTabView({Key? key});
+  const MainTabView({super.key});
 
   @override
   State<MainTabView> createState() => _MainTabViewState();
 }
 
 class _MainTabViewState extends State<MainTabView> {
-  int _selectedIndex = 0; // Initial index set to Home (0)
-  late PageStorageBucket storageBucket;
-  // late List<Widget> pages;
-
-  @override
-  void initState() {
-    super.initState();
-    storageBucket = PageStorageBucket();
-  }
-
-  void onTabTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-  List<Widget> buildPages() {
-    return [
-      HomeView(),
-      MenuView(),
-      MyOrderView(),
-      MoreView(),
-    ];
-  }
+  int selctTab = 2;
+  PageStorageBucket storageBucket = PageStorageBucket();
+  Widget selectPageView = const HomeView();
 
   @override
   Widget build(BuildContext context) {
-     List<Widget> pages = buildPages();
     return Scaffold(
-        body: PageStorage(
-        bucket: storageBucket,
-        child: pages[_selectedIndex],
-      ),
+      body: PageStorage(bucket: storageBucket, child: selectPageView),
       backgroundColor: const Color(0xfff5f5f5),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(color: Colors.white, boxShadow: [
-          BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
-        ]),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterDocked,
+      floatingActionButton: SizedBox(
+        width: 60,
+        height: 60,
+        child: FloatingActionButton(
+          onPressed: () {
+            if (selctTab != 2) {
+              selctTab = 2;
+              selectPageView = const HomeView();
+            }
+            if (mounted) {
+              setState(() {});
+            }
+          },
+          shape: const CircleBorder(),
+          backgroundColor: selctTab == 2 ? TColor.primary : TColor.placeholder,
+          child: Image.asset(
+            "assets/images/tab_home.png",
+            width: 30,
+            height: 30,
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        surfaceTintColor: TColor.white,
+        shadowColor: Colors.black,
+        elevation: 1,
+        notchMargin: 12,
+        height: 64,
+        shape: const CircularNotchedRectangle(),
         child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-            child: GNav(
-              gap: 8,
-              activeColor: Colors.white,
-              iconSize: 24,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              duration: Duration(milliseconds: 600),
-              tabBackgroundColor: Colors.blue,
-              tabs: [
-                GButton(
-                  icon: Icons.home,
-                  text: 'Home',
-                  onPressed: () => onTabTapped(0),
-                ),
-                GButton(
-                  icon: Icons.restaurant_menu,
-                  text: 'Menu',
-                  onPressed: () => onTabTapped(1),
-                ),
-                GButton(
-                  icon: Icons.menu,
-                  text: 'Orders',
-                  onPressed: () => onTabTapped(2),
-                ),
-                GButton(
-                  icon: Icons.more_vert,
-                  text: 'More',
-                  onPressed: () => onTabTapped(3),
-                ),
-              ],
-              selectedIndex: _selectedIndex,
-              onTabChange: onTabTapped,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TabButton(
+                  title: "Menu",
+                  icon: "assets/images/tab_menu.png",
+                  onTap: () {
+                    if (selctTab != 0) {
+                      selctTab = 0;
+                      selectPageView = const MenuView();
+                    }
+                    if (mounted) {
+                      setState(() {});
+                    }
+                  },
+                  isSelected: selctTab == 0),
+              TabButton(
+                  title: "Offer",
+                  icon: "assets/images/tab_offer.png",
+                  onTap: () {
+                    if (selctTab != 1) {
+                      selctTab = 1;
+                      selectPageView = const OfferView();
+                    }
+                    if (mounted) {
+                      setState(() {});
+                    }
+                  },
+                  isSelected: selctTab == 1),
+        
+        
+                const  SizedBox(width: 40, height: 40, ),
+        
+              TabButton(
+                  title: "Profile",
+                  icon: "assets/images/tab_profile.png",
+                  onTap: () {
+                    if (selctTab != 3) {
+                      selctTab = 3;
+                      selectPageView = const ProfileView();
+                    }
+                    if (mounted) {
+                      setState(() {});
+                    }
+                  },
+                  isSelected: selctTab == 3),
+              TabButton(
+                  title: "More",
+                  icon: "assets/images/tab_more.png",
+                  onTap: () {
+                    if (selctTab != 4) {
+                      selctTab = 4;
+                      selectPageView = const  MoreView();
+                    }
+                    if (mounted) {
+                      setState(() {});
+                    }
+                  },
+                  isSelected: selctTab == 4),
+            ],
           ),
         ),
       ),
     );
   }
 }
-
-
-
-

@@ -13,7 +13,7 @@ class RoundButton extends StatelessWidget {
       {super.key,
       required this.title,
       required this.onPressed,
-      this.fontSize = 16,
+      this.fontSize = 15,
       this.type = RoundButtonType.bgPrimary});
 
   @override
@@ -21,7 +21,7 @@ class RoundButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        height: 56,
+        height: 50,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           border: type == RoundButtonType.bgPrimary ? null : Border.all(color: TColor.primary, width: 1),
