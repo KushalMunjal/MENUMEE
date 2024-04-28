@@ -1,11 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food_service/firebase_options.dart';
-import 'package:food_service/login/mobile_signin.dart';
+import 'package:get/get.dart';
 import 'package:food_service/login/welcome_view.dart';
-import 'package:food_service/outlet/outlet_view.dart';
 
-import 'outlet/map_screen.dart';
 
 
 void main() async {
@@ -15,7 +13,6 @@ void main() async {
    DefaultFirebaseOptions.currentPlatform);
   } catch (e) {
     print('Error initializing Firebase: $e');
-    // Handle initialization errors gracefully, show a message, or take appropriate action
   }
   runApp(MyApp());
 }
@@ -25,10 +22,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'MENUMEE',
       debugShowCheckedModeBanner: false,
-      home:GettingMobileNoView(),
+      home: WelcomeView(),
     );
   }
 }

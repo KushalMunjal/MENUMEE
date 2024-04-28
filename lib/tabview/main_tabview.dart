@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_service/common/color_extension.dart';
 import 'package:food_service/common_widget/tab_button.dart';
+import 'package:food_service/tablefinder/homescreen.dart';
 
 import '../common_widget/tab_button.dart';
 import '../home/homepage.dart';
@@ -10,16 +11,29 @@ import '../offer/offer_view.dart';
 import '../profile/profile_view.dart';
 
 class MainTabView extends StatefulWidget {
-  const MainTabView({super.key});
+  final String selectedRestaurant;
+  final String selectedCity;
 
+  const MainTabView({
+    Key? key,
+    required this.selectedRestaurant,
+    required this.selectedCity,
+  }) : super(key: key);
   @override
   State<MainTabView> createState() => _MainTabViewState();
 }
 
 class _MainTabViewState extends State<MainTabView> {
   int selctTab = 2;
-  PageStorageBucket storageBucket = PageStorageBucket();
-  Widget selectPageView = const HomeView();
+  late PageStorageBucket storageBucket;
+  late Widget selectPageView;
+
+  @override
+  void initState() {
+    super.initState();
+    selectPageView = HomeView(selectedRestaurant: widget.selectedRestaurant, selectedCity: widget.selectedCity);
+    storageBucket = PageStorageBucket();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +49,7 @@ class _MainTabViewState extends State<MainTabView> {
           onPressed: () {
             if (selctTab != 2) {
               selctTab = 2;
-              selectPageView = const HomeView();
+              selectPageView = HomeView(selectedRestaurant: widget.selectedRestaurant, selectedCity: widget.selectedCity);
             }
             if (mounted) {
               setState(() {});
@@ -90,14 +104,13 @@ class _MainTabViewState extends State<MainTabView> {
         
         
                 const  SizedBox(width: 40, height: 40, ),
-        
               TabButton(
-                  title: "Profile",
-                  icon: "assets/images/tab_profile.png",
+                  title: "Dine-In",
+                  icon: "assets/images/dinein.png",
                   onTap: () {
                     if (selctTab != 3) {
                       selctTab = 3;
-                      selectPageView = const ProfileView();
+                      selectPageView = const HomeScreen();
                     }
                     if (mounted) {
                       setState(() {});
