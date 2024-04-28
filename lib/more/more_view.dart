@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:food_service/login/login_view.dart';
+import 'package:food_service/login/sign_up_view.dart';
 import 'package:food_service/more/about_us_view.dart';
+import 'package:food_service/more/helpdesk_view.dart';
 import 'package:food_service/more/inbox_view.dart';
 import 'package:food_service/more/payment_details_view.dart';
-
+import 'package:food_service/profile/profile_view.dart';
+import 'package:get/get.dart';
 import '../../common/color_extension.dart';
 import 'my_order_view.dart';
 import 'notification_view.dart';
@@ -18,36 +22,48 @@ class _MoreViewState extends State<MoreView> {
   List moreArr = [
     {
       "index": "1",
+      "name": "Profile",
+      "image": "assets/images/tab_profile.png",
+      "base": 0
+    },
+    {
+      "index": "2",
       "name": "Payment Details",
       "image": "assets/images/more_payment.png",
       "base": 0
     },
     {
-      "index": "2",
+      "index": "3",
       "name": "My Orders",
       "image": "assets/images/more_my_order.png",
       "base": 0
     },
     {
-      "index": "3",
+      "index": "4",
+      "name": "Help Desk",
+      "image": "assets/images/more_notification.png",
+      "base": 0
+    },    
+    {
+      "index": "5",
       "name": "Notifications",
       "image": "assets/images/more_notification.png",
       "base": 15
     },
     {
-      "index": "4",
+      "index": "6",
       "name": "Inbox",
       "image": "assets/images/more_inbox.png",
       "base": 0
     },
     {
-      "index": "5",
+      "index": "7",
       "name": "About Us",
       "image": "assets/images/more_info.png",
       "base": 0
     },
     {
-      "index": "6",
+      "index": "8",
       "name": "Logout",
       "image": "assets/images/more_info.png",
       "base": 0
@@ -80,10 +96,10 @@ class _MoreViewState extends State<MoreView> {
                     ),
                     IconButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MyOrderView()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => const MyOrderView()));
                       },
                       icon: Image.asset(
                         "assets/images/shopping_cart.png",
@@ -110,33 +126,42 @@ class _MoreViewState extends State<MoreView> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const PaymentDetailsView()));
-
-                            break;
-
+                                        const ProfileView()));
                           case "2":
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyOrderView()));
+                                    builder: (context) =>
+                                        const PaymentDetailsView()));
                           case "3":
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => const MyOrderView()));
+                          case "4":
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const HelpDeskView()));
+                          case "5":
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         const NotificationsView()));
-                          case "4":
+                          case "6":
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const InboxView()));
-                          case "5":
+                          case "7":
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const AboutUsView()));
-                          case "6":
-                           
+                          case "8":
+                            Get.offAll(LoginView());
 
                           default:
                         }

@@ -58,10 +58,10 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView> {
                     ),
                     IconButton(
                       onPressed: () {
-                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MyOrderView()));
+                        //  Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => const MyOrderView()));
                       },
                       icon: Image.asset(
                         "assets/images/shopping_cart.png",

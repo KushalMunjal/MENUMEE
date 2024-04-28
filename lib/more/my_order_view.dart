@@ -5,7 +5,9 @@ import 'package:food_service/common_widget/round_button.dart';
 import 'checkout_view.dart';
 
 class MyOrderView extends StatefulWidget {
-  const MyOrderView({super.key});
+  final List<Map<String, dynamic>> items;
+
+  const MyOrderView({Key? key, required this.items}) : super(key: key);
 
   @override
   State<MyOrderView> createState() => _MyOrderViewState();
@@ -22,6 +24,9 @@ class _MyOrderViewState extends State<MyOrderView> {
 
   @override
   Widget build(BuildContext context) {
+    double totalPrice = widget.items.fold(0, (previousValue, item) {
+      return previousValue + (item["price"] * int.parse(item["qty"]));
+    });
     return Scaffold(
       backgroundColor: TColor.white,
       body: SingleChildScrollView(
@@ -183,48 +188,61 @@ class _MyOrderViewState extends State<MyOrderView> {
               Container(
                 decoration: BoxDecoration(color: TColor.textfield),
                 child: ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  itemCount: itemArr.length,
-                  separatorBuilder: ((context, index) => Divider(
-                        indent: 25,
-                        endIndent: 25,
-                        color: TColor.secondaryText.withOpacity(0.5),
-                        height: 1,
-                      )),
-                  itemBuilder: ((context, index) {
-                    var cObj = itemArr[index] as Map? ?? {};
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 25),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              "${cObj["name"].toString()} x${cObj["qty"].toString()}",
-                              style: TextStyle(
-                                  color: TColor.primaryText,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            "\$${cObj["price"].toString()}",
-                            style: TextStyle(
-                                color: TColor.primaryText,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700),
-                          )
-                        ],
-                      ),
-                    );
-                  }),
+  physics: NeverScrollableScrollPhysics(),
+  shrinkWrap: true,
+  padding: EdgeInsets.zero,
+  itemCount: widget.items.length,
+  separatorBuilder: (context, index) => Divider(
+    indent: 25,
+    endIndent: 25,
+    color: TColor.secondaryText.withOpacity(0.5),
+    height: 1,
+  ),
+  itemBuilder: (context, index) {
+    var item = widget.items[index];
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${item["name"]} x${item["qty"]}",
+                  style: TextStyle(
+                    color: TColor.primaryText,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
+                Text(
+                   "\$$totalPrice",// Calculate total price for each item
+                  style: TextStyle(
+                    color: TColor.primaryText,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 15),
+          Text(
+            "\$${(item["price"] * int.parse(item["qty"])).toStringAsFixed(2)}", // Display unit price
+            style: TextStyle(
+              color: TColor.primaryText,
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+            ),
+          )
+        ],
+      ),
+    );
+  },
+)
+
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),

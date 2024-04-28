@@ -56,10 +56,10 @@ class _AboutUsViewState extends State<AboutUsView> {
                     ),
                     IconButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MyOrderView()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => const MyOrderView()));
                       },
                       icon: Image.asset(
                         "assets/images/shopping_cart.png",
