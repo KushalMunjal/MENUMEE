@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:food_service/common_widget/round_button.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../common/color_extension.dart';
@@ -50,10 +51,7 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
                 IconButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MyOrderView()));
+                    // Get.to(MyOrderView());
                   },
                   icon: Image.asset(
                     "assets/images/shopping_cart.png",
