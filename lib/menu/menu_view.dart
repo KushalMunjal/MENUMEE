@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../common/color_extension.dart';
 import '../../common_widget/round_textfield.dart';
@@ -15,9 +16,24 @@ class MenuView extends StatefulWidget {
 class _MenuViewState extends State<MenuView> {
   List menuArr = [
     {
-      "name": "Food",
+      "name": "Combos",
       "image": "assets/images/menu_1.png",
       "items_count": "120",
+    },
+    {
+      "name": "Pizza",
+      "image": "assets/images/menu_2.png",
+      "items_count": "220",
+    },
+    {
+      "name": "Burger",
+      "image": "assets/images/menu_3.png",
+      "items_count": "155",
+    },
+    {
+      "name": "Desserts",
+      "image": "assets/images/menu_4.png",
+      "items_count": "25",
     },
     {
       "name": "Beverages",
@@ -25,12 +41,7 @@ class _MenuViewState extends State<MenuView> {
       "items_count": "220",
     },
     {
-      "name": "Desserts",
-      "image": "assets/images/menu_3.png",
-      "items_count": "155",
-    },
-    {
-      "name": "Promotions",
+      "name": "Drinks",
       "image": "assets/images/menu_4.png",
       "items_count": "25",
     },
@@ -77,10 +88,7 @@ class _MenuViewState extends State<MenuView> {
                         ),
                         IconButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const MyOrderView()));
+                                    // Get.to(MyOrderView());
                           },
                           icon: Image.asset(
                             "assets/images/shopping_cart.png",
@@ -123,14 +131,7 @@ class _MenuViewState extends State<MenuView> {
                         var mObj = menuArr[index] as Map? ?? {};
                         return GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MenuItemsView(
-                                  mObj: mObj,
-                                ),
-                              ),
-                            );
+                            Get.to(MenuItemsView(mObj: mObj));
                           },
                           child: Stack(
                             alignment: Alignment.centerRight,

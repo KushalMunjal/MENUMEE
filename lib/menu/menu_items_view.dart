@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_service/common/color_extension.dart';
 import 'package:food_service/common_widget/round_textfield.dart';
+import 'package:get/get.dart';
 
 import '../../common_widget/menu_item_row.dart';
 import '../more/my_order_view.dart';
@@ -16,6 +17,7 @@ class MenuItemsView extends StatefulWidget {
 
 class _MenuItemsViewState extends State<MenuItemsView> {
   TextEditingController txtSearch = TextEditingController();
+ 
   List menuItemsArr = [
     {
       "image": "assets/images/dess_1.png",
@@ -43,7 +45,7 @@ class _MenuItemsViewState extends State<MenuItemsView> {
     },
     {
       "image": "assets/images/dess_4.png",
-      "name": "Fudgy Chewy Brownies",
+      "name": "Fudgy Chocolate Brownies",
       "rate": "4.9",
       "rating": "124",
       "type": "Minute by tuk tuk",
@@ -59,7 +61,7 @@ class _MenuItemsViewState extends State<MenuItemsView> {
     },
     {
       "image": "assets/images/dess_2.png",
-      "name": "Dark Chocolate Cake",
+      "name": "Chocolate Brownie Cake",
       "rate": "4.9",
       "rating": "124",
       "type": "Cakes by Tella",
@@ -67,22 +69,109 @@ class _MenuItemsViewState extends State<MenuItemsView> {
     },
     {
       "image": "assets/images/dess_3.png",
-      "name": "Street Shake",
+      "name": "Street Chocolate Shake",
       "rate": "4.9",
       "rating": "124",
       "type": "Café Racer",
       "food_type": "Desserts"
     },
     {
-      "image": "assets/images/dess_4.png",
-      "name": "Fudgy Chewy Brownies",
+      "image": "assets/images/shop_logo.png",
+      "name": "Classic Burger",
       "rate": "4.9",
       "rating": "124",
       "type": "Minute by tuk tuk",
-      "food_type": "Desserts"
+      "food_type": "Burger"
+    },
+    {
+      "image": "assets/images/cat_offer.png",
+      "name": "Mexican Burger",
+      "rate": "4.9",
+      "rating": "124",
+      "type": "Minute by tuk tuk",
+      "food_type": "Burger"
+    },
+    {
+      "image": "assets/images/shop_logo.png",
+      "name": "Tandoori Burger",
+      "rate": "4.9",
+      "rating": "124",
+      "type": "Minute by tuk tuk",
+      "food_type": "Burger"
+    },
+    {
+      "image": "assets/images/cat_offer.png",
+      "name": "Cheese Burger",
+      "rate": "4.9",
+      "rating": "124",
+      "type": "Minute by tuk tuk",
+      "food_type": "Burger"
+    },
+    {
+      "image": "assets/images/menu_4.png",
+      "name": "Italian Burger",
+      "rate": "4.9",
+      "rating": "124",
+      "type": "Minute by tuk tuk",
+      "food_type": "Burger"
+    },
+    {
+      "image": "assets/images/detail_top.png",
+      "name": "Classic Pizza",
+      "rate": "4.9",
+      "rating": "124",
+      "type": "Minute by tuk tuk",
+      "food_type": "Pizza"
+    },
+    {
+      "image": "assets/images/item_1.png",
+      "name": "Mexican Pizza",
+      "rate": "4.9",
+      "rating": "124",
+      "type": "Minute by tuk tuk",
+      "food_type": "Pizza"
+    },
+    {
+      "image": "assets/images/item_3.png",
+      "name": "Tandoori Pizza",
+      "rate": "4.9",
+      "rating": "124",
+      "type": "Minute by tuk tuk",
+      "food_type": "Pizza"
+    },
+    {
+      "image": "assets/images/m_res_1.png",
+      "name": "Cheese Pizza",
+      "rate": "4.9",
+      "rating": "124",
+      "type": "Minute by tuk tuk",
+      "food_type": "Pizza"
+    },
+    {
+      "image": "assets/images/res_1.png",
+      "name": "Italian Pizza",
+      "rate": "4.9",
+      "rating": "124",
+      "type": "Minute by tuk tuk",
+      "food_type": "Pizza"
+    },
+    {
+      "image": "assets/images/combo1.png",
+      "name": "Classic Burger-Fries",
+      "rate": "4.9",
+      "rating": "124",
+      "type": "Minute by tuk tuk",
+      "food_type": "Combos"
+    },
+    {
+      "image": "assets/images/combo2.png",
+      "name": "Cheese Burger-Pizza",
+      "rate": "4.9",
+      "rating": "124",
+      "type": "Minute by tuk tuk",
+      "food_type": "Combos"
     },
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +189,7 @@ class _MenuItemsViewState extends State<MenuItemsView> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Get.back();
                       },
                       icon: Image.asset("assets/images/btn_back.png",
                           width: 20, height: 20),
@@ -119,10 +208,7 @@ class _MenuItemsViewState extends State<MenuItemsView> {
                     ),
                     IconButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MyOrderView()));
+                                // Get.to(MyOrderView());
                       },
                       icon: Image.asset(
                         "assets/images/shopping_cart.png",
@@ -160,18 +246,21 @@ class _MenuItemsViewState extends State<MenuItemsView> {
                 shrinkWrap: true,
                 padding: EdgeInsets.zero,
                 itemCount: menuItemsArr.length,
-                itemBuilder: ((context, index) {
-                  var mObj = menuItemsArr[index] as Map? ?? {};
-                  return MenuItemRow(
-                    mObj: mObj,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ItemDetailsView()),
-                      );
-                    },
-                  );
+                itemBuilder: ((context, index){
+                  var mObj = menuItemsArr[index];
+
+                  // Check if food_type and name match with widget.mObj
+                  if (mObj['food_type'] == widget.mObj['name']) {
+                    return MenuItemRow(
+                      mObj: mObj,
+                      onTap: () {
+                        Get.to(ItemDetailsView(image: mObj['image'],title: mObj['name'],));
+                      },
+                    );
+                  } else {
+                    // Return an empty container if the item doesn't match
+                    return Container();
+                  }
                 }),
               ),
             ],

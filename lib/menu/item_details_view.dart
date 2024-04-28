@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:food_service/common_widget/round_icon_button.dart';
+import 'package:get/get.dart';
 
 import '../../common/color_extension.dart';
 import '../more/my_order_view.dart';
 
 class ItemDetailsView extends StatefulWidget {
-  const ItemDetailsView({super.key});
+  final String image;
+  final String title;
+
+  const ItemDetailsView({
+    Key? key,
+    required this.image,
+    required this.title,
+  }) : super(key: key);
 
   @override
   State<ItemDetailsView> createState() => _ItemDetailsViewState();
@@ -26,7 +34,7 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
         alignment: Alignment.topCenter,
         children: [
           Image.asset(
-            "assets/images/detail_top.png",
+            widget.image,
             width: media.width,
             height: media.width,
             fit: BoxFit.cover,
@@ -68,7 +76,7 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 25),
                                 child: Text(
-                                  "Tandoori Chicken Pizza",
+                                  widget.title,
                                   style: TextStyle(
                                       color: TColor.primaryText,
                                       fontSize: 22,
@@ -465,11 +473,15 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                                               )),
                                           InkWell(
                                             onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const MyOrderView()));
+                                              Get.to(MyOrderView(
+                                                items: [
+                                                  {
+                                                    "name": widget.title,
+                                                    "qty": qty.toString(),
+                                                    "price": price,
+                                                  },
+                                                ],
+                                              ));
                                             },
                                             child: Container(
                                               width: 45,
@@ -543,7 +555,7 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          Get.back();
                         },
                         icon: Image.asset(
                           "assets/images/btn_back.png",
@@ -554,10 +566,15 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
                       ),
                       IconButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const MyOrderView()));
+                          Get.to(MyOrderView(
+                            items: [
+                              {
+                                "name": widget.title,
+                                "qty": qty.toString(),
+                                "price": price,
+                              },
+                            ],
+                          ));
                         },
                         icon: Image.asset(
                           "assets/images/shopping_cart.png",
@@ -577,3 +594,4 @@ class _ItemDetailsViewState extends State<ItemDetailsView> {
     );
   }
 }
+
