@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_service/common/color_extension.dart';
 import 'package:food_service/common_widget/round_button.dart';
 import 'package:food_service/login/otp_view.dart';
 import 'package:food_service/common/color_extension.dart';
 import 'package:food_service/common_widget/round_button.dart';
+import 'package:get/get.dart';
 import '../../common_widget/round_textfield.dart';
 import 'new_password_view.dart';
 
@@ -64,13 +66,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
              
               RoundButton(title: "Send", onPressed: () {
                 btnSubmit();
-                Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OTPView(),
-                      ),
-                    );
-                
+              //  Get.to(OTPView());
               }),
               
             ],
@@ -80,30 +76,16 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
     );
   }
 
-  //TODO: Action
-  void btnSubmit() {
+  void btnSubmit() async {
+  String email = txtEmail.text.trim();
+  try {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    Get.to(OTPView());
+  } catch (e) {
+    // Handle errors if the password reset email cannot be sent
+    print("Error sending password reset email: $e");
+    // You can show an error message to the user here
   }
-
-  //TODO: ServiceCall
-
-  // void serviceCallForgotRequest(Map<String, dynamic> parameter) {
-  //   Globs.showHUD();
-
-  //   ServiceCall.post(parameter, SVKey.svForgotPasswordRequest,
-  //       withSuccess: (responseObj) async {
-  //     Globs.hideHUD();
-  //     if (responseObj[KKey.status] == "1") {
-        
-  //       Navigator.push(context, MaterialPageRoute(builder: (context) => OTPView(email: txtEmail.text) ) );
-
-        
-  //     } else {
-  //       mdShowAlert(Globs.appName,
-  //           responseObj[KKey.message] as String? ?? MSG.fail, () {});
-  //     }
-  //   }, failure: (err) async {
-  //     Globs.hideHUD();
-  //     mdShowAlert(Globs.appName, err.toString(), () {});
-  //   });
-  // }a
+}
+ 
 }

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:food_service/common/color_extension.dart';
 import 'package:food_service/common_widget/round_button.dart';
 import 'package:food_service/login/otp_view.dart';
+import 'package:get/get.dart';
+import 'package:toasty_box/toast_enums.dart';
+import 'package:toasty_box/toast_service.dart';
 
 import 'signin_otp_view.dart';
 
@@ -74,12 +77,6 @@ class _GettingMobileNoViewState extends State<GettingMobileNoView> {
                   title: "Send OTP",
                   onPressed: () {
                     btnSubmit();
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => SigninOTPView(),
-                    //   ),
-                    // );
                   }),
             ],
           ),
@@ -90,10 +87,11 @@ class _GettingMobileNoViewState extends State<GettingMobileNoView> {
 
   //TODO: Action
   Future<void> btnSubmit() async {
-    String countrycode = "+91";
-    String phoneNumber = '$countrycode${txtPhone.text}';
-    print('Phone number: $phoneNumber');
-    
+  String countrycode = "+91";
+  String phoneNumber = '$countrycode${txtPhone.text}';
+  print('Phone number: $phoneNumber');
+  
+  try {
     // Send OTP using Firebase Authentication
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: phoneNumber,
@@ -101,20 +99,34 @@ class _GettingMobileNoViewState extends State<GettingMobileNoView> {
       verificationFailed: (FirebaseAuthException e) {
         // Handle verification failure
         print("Verification Failed: ${e.message}");
+        // Show error toast message
+        ToastService.showErrorToast(
+          context,
+          length: ToastLength.medium,
+          expandedHeight: 100,
+          message: "Verification Failed: ${e.message}",
+        );
       },
       codeSent: (String verificationId, int? resendToken) {
         // Navigate to OTP verification screen
-        Navigator.pushReplacement(
+        ToastService.showSuccessToast(
           context,
-          MaterialPageRoute(
-            builder: (context) => SigninOTPView(
-              verificationId: verificationId,
-            ),
-          ),
+          length: ToastLength.medium,
+          expandedHeight: 100,
+          message: "OTP Sent Successfully",
         );
-        print("thay che pan screen nahi avti");
+        Get.off(SigninOTPView(verificationId: verificationId));
       },
       codeAutoRetrievalTimeout: (String verificationId) {},
     );
+  } catch (e) {
+    print("Error sending OTP: $e");
+    ToastService.showErrorToast(
+      context,
+      length: ToastLength.medium,
+      expandedHeight: 100,
+      message: "Error sending OTP: $e",
+    );
   }
+}
 }

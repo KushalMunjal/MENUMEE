@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_service/common/color_extension.dart';
 import 'package:food_service/common_widget/round_button.dart';
 import 'package:food_service/login/new_password_view.dart';
+import 'package:get/get.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
 
 
@@ -132,13 +133,7 @@ class _OTPViewState extends State<OTPView> {
               RoundButton(
                   title: "Next",
                   onPressed: () {
-                    // btnSubmit();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NewPasswordView(),
-                      ),
-                    );
+                    Get.to(NewPasswordView());
                   }),
                 TextButton(
                 onPressed: () {

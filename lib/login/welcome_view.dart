@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_service/login/login_view.dart';
+import 'package:food_service/login/mobile_signin.dart';
 import 'package:food_service/login/sign_up_view.dart';
 import 'package:food_service/login/signin_otp_view.dart';
+import 'package:get/get.dart';
 
 import '../../common/color_extension.dart';
 import '../../common_widget/round_button.dart';
@@ -57,12 +59,7 @@ class _WelcomeViewState extends State<WelcomeView> {
                   child: RoundButton(
                     title: "Sign In with OTP",
                     onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) =>  SigninOTPView(),
-                      //   ),
-                      // );
+                      Get.to(GettingMobileNoView());
                     },
                   ),
                 ),
@@ -75,12 +72,7 @@ class _WelcomeViewState extends State<WelcomeView> {
                     title: "Sign Up",
                     type: RoundButtonType.textPrimary,
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SignUpView(),
-                        ),
-                      );
+                      Get.to(SignUpView());
                     },
                   ),
                 ),

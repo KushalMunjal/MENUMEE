@@ -1,11 +1,15 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_service/common/color_extension.dart';
 import 'package:food_service/common_widget/round_button.dart';
 import 'package:food_service/common_widget/round_textfield.dart';
 import 'package:food_service/login/login_view.dart';
 import 'package:food_service/login/otp_view.dart';
+import 'package:get/get.dart';
+import 'package:toasty_box/toast_enums.dart';
+import 'package:toasty_box/toast_service.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -16,15 +20,15 @@ class SignUpView extends StatefulWidget {
 
 class _SignUpViewState extends State<SignUpView> {
   TextEditingController txtName = TextEditingController();
-  TextEditingController txtMobile = TextEditingController();
   TextEditingController txtAddress = TextEditingController();
   TextEditingController txtEmail = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
   TextEditingController txtConfirmPassword = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -68,14 +72,6 @@ class _SignUpViewState extends State<SignUpView> {
                 height: 25,
               ),
               RoundTextfield(
-                hintText: "Mobile No",
-                controller: txtMobile,
-                keyboardType: TextInputType.phone,
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              RoundTextfield(
                 hintText: "Address",
                 controller: txtAddress,
               ),
@@ -87,7 +83,7 @@ class _SignUpViewState extends State<SignUpView> {
                 controller: txtPassword,
                 obscureText: true,
               ),
-               const SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               RoundTextfield(
@@ -98,26 +94,13 @@ class _SignUpViewState extends State<SignUpView> {
               const SizedBox(
                 height: 25,
               ),
-              RoundButton(title: "Sign Up", onPressed: () {
-                // btnSignUp();
-                 Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OTPView(),
-                      ),
-                    );
-              }),
+              RoundButton(title: "Sign Up", onPressed: signUpWithEmailAndPassword),
               const SizedBox(
                 height: 30,
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginView(),
-                    ),
-                  );
+                  Get.off(LoginView());
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -144,5 +127,84 @@ class _SignUpViewState extends State<SignUpView> {
         ),
       ),
     );
-  }  
+  }
+
+ void signUpWithEmailAndPassword() async {
+  // Validation for email and password
+  String name = txtName.text.trim();
+  String email = txtEmail.text.trim();
+  String address = txtAddress.text.trim();
+  String password = txtPassword.text;
+  String confirmPassword = txtConfirmPassword.text;
+
+  // Regular expression for email validation
+  RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+
+// Check if password is not empty
+  if (name.isEmpty) {
+    ToastService.showErrorToast(
+      context,
+      length: ToastLength.short,
+      expandedHeight: 100,
+      message: "Please Enter the Name",
+    );
+    return;
+  }
+  // Check if email is valid
+  if (!emailRegex.hasMatch(email)) {
+   ToastService.showErrorToast(
+      context,
+      length: ToastLength.short,
+      expandedHeight: 100,
+      message: "Please Enter valid email address",
+    );
+    return;
+  }
+
+  // Check if password is not empty
+  if (password.isEmpty) {
+    ToastService.showErrorToast(
+      context,
+      length: ToastLength.short,
+      expandedHeight: 100,
+      message: "Please Enter the Password",
+    );
+    return;
+  }
+
+  // Check if password matches confirm password
+  if (password != confirmPassword) {
+    ToastService.showErrorToast(
+      context,
+      length: ToastLength.short,
+      expandedHeight: 100,
+      message: "Password and confirm password do not match",
+    );
+    return;
+  }
+
+  try {
+    UserCredential userCredential =
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    ToastService.showSuccessToast(
+      context,
+      length: ToastLength.short,
+      expandedHeight: 100,
+      message: "Signup Successful",
+    );
+    Get.off(LoginView());
+  } catch (e) {
+   
+    print("Sign up error: $e");
+    ToastService.showErrorToast(
+      context,
+      length: ToastLength.short,
+      expandedHeight: 100,
+      message: "$e",
+    );
+  }
+}
 }
