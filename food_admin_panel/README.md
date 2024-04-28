@@ -1,6 +1,12 @@
-# food_admin_panel
+Github Repo Link : https://github.com/KushalMunjal/MENUMEE
+# MENUMEE APP Using Flutter 
+Steps to Install this Application to your Device or To Contribute further.
 
-A new Flutter project.
+-Install Flutter SDK and Dart SDK.
+-Make A new Flutter project.
+-Add the Name of Your Application to MENUMEE.
+-Now Run "dart pub get" to get all dependencies to run application.
+-Connect to Your Emulator or Web or MObile Device for Running the APP.
 
 ## Getting Started
 
