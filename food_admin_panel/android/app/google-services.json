@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "437513836307",
+    "project_id": "foodadminpanel-b15da",
+    "storage_bucket": "foodadminpanel-b15da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437513836307:android:729bc1b8afe94b40e6ece6",
+        "android_client_info": {
+          "package_name": "com.example.food_admin_panel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqZUMR8jMvjgiZ6-j3VVy15yYpGRGpO2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
