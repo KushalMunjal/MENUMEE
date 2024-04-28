@@ -4,13 +4,16 @@ import 'package:food_service/common_widget/restaurant_details.dart';
 import 'package:food_service/common_widget/round_button.dart';
 import 'package:food_service/common_widget/round_icon_button.dart';
 import 'package:food_service/common_widget/round_textfield.dart';
+import 'package:food_service/home/homepage.dart';
 import 'package:food_service/outlet/outlet_view.dart';
+import 'package:food_service/tabview/main_tabview.dart';
+import 'package:get/get.dart';
 
 class OutletDetailedViewState extends StatefulWidget {
   final String cityName;
 
-  const OutletDetailedViewState({Key? key, required this.cityName}) : super(key: key);
-
+  const OutletDetailedViewState({Key? key, required this.cityName})
+      : super(key: key);
 
   @override
   State<OutletDetailedViewState> createState() =>
@@ -18,7 +21,7 @@ class OutletDetailedViewState extends StatefulWidget {
 }
 
 class __OutletDetailedViewStateState extends State<OutletDetailedViewState> {
-  String selectedCity = "City"; // Default city name
+  String selectedCity = "City";
 
   void updateCity(String cityName) {
     setState(() {
@@ -33,10 +36,7 @@ class __OutletDetailedViewStateState extends State<OutletDetailedViewState> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => OutletViewState()),
-            );
+            Get.to(OutletViewState());
           },
         ),
         title: Text(
@@ -78,6 +78,13 @@ class __OutletDetailedViewStateState extends State<OutletDetailedViewState> {
                 restaurantType: "Pure-Veg",
                 rating: 3.5,
                 totalReviews: 500,
+                onTap: () {
+                  String selectedRestaurant = "Vishal Restaurant";
+                  String selectedCity = widget.cityName;
+                  Get.to(MainTabView(
+                      selectedRestaurant: selectedRestaurant,
+                      selectedCity: selectedCity));
+                },
               ),
               const SizedBox(height: 10),
               RestaurantCard(
@@ -86,6 +93,13 @@ class __OutletDetailedViewStateState extends State<OutletDetailedViewState> {
                 restaurantType: "Pure-Veg",
                 rating: 3.5,
                 totalReviews: 500,
+                onTap: () {
+                  String selectedRestaurant = "JK Restro";
+                  String selectedCity = widget.cityName;
+                  Get.to(MainTabView(
+                      selectedRestaurant: selectedRestaurant,
+                      selectedCity: selectedCity));
+                },
               ),
               const SizedBox(height: 10),
               RestaurantCard(
@@ -94,8 +108,14 @@ class __OutletDetailedViewStateState extends State<OutletDetailedViewState> {
                 restaurantType: "Pure-Veg",
                 rating: 3.5,
                 totalReviews: 500,
+                onTap: () {
+                  String selectedRestaurant = "Hotel Madhav";
+                  String selectedCity = widget.cityName;
+                  Get.to(MainTabView(
+                      selectedRestaurant: selectedRestaurant,
+                      selectedCity: selectedCity));
+                },
               ),
-              
               const SizedBox(height: 10),
               RestaurantCard(
                 restaurantName: "Hotel JD",
@@ -103,6 +123,13 @@ class __OutletDetailedViewStateState extends State<OutletDetailedViewState> {
                 restaurantType: "Pure-Veg",
                 rating: 3.5,
                 totalReviews: 500,
+                onTap: () {
+                  String selectedRestaurant = "Hotel JD";
+                  String selectedCity = widget.cityName;
+                  Get.to(MainTabView(
+                      selectedRestaurant: selectedRestaurant,
+                      selectedCity: selectedCity));
+                },
               ),
             ],
           ),

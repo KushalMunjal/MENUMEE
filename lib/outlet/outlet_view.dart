@@ -4,6 +4,7 @@ import 'package:food_service/common_widget/city_model.dart';
 import 'package:food_service/common_widget/round_button.dart';
 import 'package:food_service/common_widget/round_icon_button.dart';
 import 'package:food_service/common_widget/round_textfield.dart';
+import 'package:food_service/outlet/map_screen.dart';
 import 'package:food_service/outlet/outlet_details.dart';
 import 'package:get/get.dart';
 
@@ -92,13 +93,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -109,13 +104,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -126,13 +115,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -143,13 +126,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -160,13 +137,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -177,13 +148,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -194,13 +159,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -211,13 +170,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -228,13 +181,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -245,13 +192,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -262,13 +203,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -279,13 +214,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -296,13 +225,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -313,13 +236,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -330,13 +247,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -347,13 +258,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -364,13 +269,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -380,13 +279,7 @@ class __OutletViewStateState extends State<OutletViewState> {
               cityNames: ["Rajkot"]
             ),onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -397,13 +290,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -414,13 +301,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -431,13 +312,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -448,13 +323,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -465,13 +334,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -482,13 +345,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -499,13 +356,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 10),
@@ -516,13 +367,7 @@ class __OutletViewStateState extends State<OutletViewState> {
             ),
             onPressed: (String cityName) {
               updateCity(cityName);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      OutletDetailedViewState(cityName: cityName),
-                ),
-              );
+              Get.to(OutletDetailedViewState(cityName: cityName));
             },
           ),
           const SizedBox(height: 15),
@@ -530,7 +375,10 @@ class __OutletViewStateState extends State<OutletViewState> {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: RoundButton(title: "Use My Current Location", onPressed: () {}),
+        child: RoundButton(title: "Use My Current Location", 
+        onPressed: () {
+              Get.to(MapScreen());
+        }),
       ),
     );
   }

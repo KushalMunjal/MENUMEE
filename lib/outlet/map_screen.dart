@@ -11,9 +11,10 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-    late final Future<LatLng> _mapLoadedFuture;
+  late final Future<LatLng> _mapLoadedFuture;
   final viewModel = GoogleMapViewModel();
   String? cityName;
+  TextEditingController _locationController = TextEditingController();
 
   @override
   void initState() {
@@ -45,53 +46,78 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
+  Future<void> _searchLocation(String location) async {
+    if (location.isNotEmpty) {
+      try {
+        List<Location> locations = await locationFromAddress(location);
+        if (locations.isNotEmpty) {
+          Location userLocation = locations.first;
+          LatLng coordinates = LatLng(userLocation.latitude, userLocation.longitude);
+          fetchCityName(coordinates);
+          viewModel.controller.future.then((controller) {
+            controller.animateCamera(CameraUpdate.newLatLngZoom(coordinates, 18));
+          });
+        }
+      } catch (e) {
+        print("Error: $e");
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            flex: 1,
-            child: FutureBuilder(
-              future: _mapLoadedFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text(
-                      snapshot.error.toString(),
-                    ),
-                  );
-                }
-
-                fetchCityName(snapshot.data as LatLng);
-
-                return GoogleMapWidget(
-                  currentUserLocation: snapshot.data as LatLng,
-                  onMapCreated: (controller) {
-                    viewModel.controller.complete(controller);
-                  },
-                );
-              },
-            ),
+      appBar: AppBar(
+        title: TextField(
+          controller: _locationController,
+          decoration: InputDecoration(
+            hintText: 'Search Location',
+            border: InputBorder.none,
           ),
-          Expanded(
-            flex: 2,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'You are located in ${cityName ?? "Unknown City"}',
-                  style: TextStyle(fontSize: 24),
-                ),
-                SizedBox(height: 16),
-               
-              ],
+          onSubmitted: _searchLocation,
+        ),
+      ),
+      body: Stack(
+        children: [
+          FutureBuilder(
+            future: _mapLoadedFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text(
+                    snapshot.error.toString(),
+                  ),
+                );
+              }
+
+              fetchCityName(snapshot.data as LatLng);
+
+              return GoogleMapWidget(
+                currentUserLocation: snapshot.data as LatLng,
+                onMapCreated: (controller) {
+                  viewModel.controller.complete(controller);
+                },
+              );
+            },
+          ),
+          Positioned(
+            bottom: 16.0,
+            right: 16.0,
+            child: FloatingActionButton(
+              onPressed: () async {
+                LatLng currentLocation = await viewModel.loadCurrentUserCoordinates();
+                fetchCityName(currentLocation);
+                viewModel.controller.future.then((controller) {
+                  controller.animateCamera(CameraUpdate.newLatLngZoom(currentLocation, 18));
+                });
+              },
+              child: Icon(Icons.my_location),
             ),
           ),
         ],
