@@ -1,4 +1,4 @@
-# MENUMEE APP Using Flutter 
+# MENUMEE is a Food Ordering and Dine-In App using Flutter which provides Fucntionalities to user for Choosing different outlets and also from different cities.
 Steps to Install this Application to your Device or To Contribute further.
 
 -Install Flutter SDK and Dart SDK.
